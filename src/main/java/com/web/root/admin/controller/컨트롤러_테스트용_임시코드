@@ -1,0 +1,39 @@
+//	movie1.jsp에서 좌석 예매 정보 변경
+	@GetMapping("/modify1")
+	public void modify1(Model model, RedirectAttributes ra, 
+			@RequestParam("no") String no ,
+			@RequestParam("name") String name ,
+			@RequestParam("title") String title,
+			@RequestParam("theater") String theater,
+			@RequestParam("seats") int seats,
+			@RequestParam("time") String time,
+			@RequestParam("id") String id,
+			@RequestParam("phone") String phone,
+			@RequestParam("price") int price,
+			@RequestParam("count") int count,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			ClientDTO clientDTO) throws IOException{
+		
+		System.out.println(request.getParameter("no"));
+		
+		as.modify1(seats);
+		int result=cs.reserveSave2(request, clientDTO);
+		if(result==1) {
+			System.out.println("삽입 성공");
+			response.sendRedirect("/root/admin/confirmation");
+		}else {
+			System.out.println("삽입 실패");
+			response.sendRedirect("/root/admin/movie1");
+		}
+		
+	} 
+
+@GetMapping("/confirmation")
+	public String confirmation(Model model) {
+		cs.list(model);
+		return "/admin/confirmation";
+	}//추가함
+	
+	위 두 메서드는 서로 동시에 추가하거나 삭제
+	

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.root.mybatis.member.MemberMapper">
+
+	<resultMap type="com.web.root.dto.MemberDTO" id="member">
+		<id property="memrberNo" column="memberno"/>
+		<result property="name" column="name"/>
+		<result property="birth" column="birth"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="id" column="id"/>
+		<result property="pw" column="pw"/>
+		<result property="point" column="point"/>
+	</resultMap>
+
+	<select id="user_check" resultMap="member">
+		select * from member where id=#{id}
+	</select>
+	
+	<insert id="writesave">
+      insert into member_ex(memberno, name, birth, phone, email, id, pw)  
+      values(member_ex_seq.nextval, #{name}, #{birth}, #{phone}, #{email}, #{id}, #{pw})
+   	</insert>
+   	
+   	<select id="checkId" resultType="int" >
+   		select count(*) from member_ex where id=#{id}
+   	</select>
+	
+	
+	<select id="viewinfo" resultMap="member">
+		select * from member_ex where id=#{id}
+	</select>
+	
+	<update id="modify">
+		update member_ex set name=#{name}, birth=#{birth}, phone=#{phone}, email=#{email}, id=#{id}, pw=#{pw}
+		where id=#{id}
+	</update>
+	
+	<delete id="delete">
+		delete from member_ex where id = #{id}
+	</delete>
+
+</mapper>

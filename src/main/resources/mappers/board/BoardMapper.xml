@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.root.mybatis.board.BoardMapper">
+
+	<resultMap type="com.web.root.dto.BoardDTO" id="board">
+		<id property="writeNo" column="writeno"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="hit" column="hit"/>
+		<result property="id" column="id"/>
+		<result property="answer" column="answer"/>
+	</resultMap>
+	
+	<select id="boardAllList" resultMap="board">
+		select B.* from 
+		(select rownum rn, A.*from
+		(select * from qa_board order by writeno desc)A )B
+		where rn between #{s} and #{e}
+	</select>
+	
+	<insert id="writeSave">
+      insert into qa_board(writeno, id, title, content, hit)  
+      values(qa_board_seq.nextval, #{id}, #{title}, #{content}, 0)
+   	</insert>
+   	
+   	<select id="contentView" resultMap="board">
+   		select * from qa_board where writeno=#{writeNo}
+   	</select>
+	
+	<update id="upHit">
+		update qa_board set hit=hit+1
+		where writeno=#{writeNo}
+	</update>
+	
+	<update id="modify">
+		update qa_board set title=#{title}, content=#{content}
+		where writeno=#{writeNo}
+	</update>
+	
+	<update id="answer">
+		update qa_board set title=#{title}, content=#{content}, answer=#{answer}
+		where writeno=#{writeNo}
+	</update>
+	
+	<delete id="delete">
+		delete from qa_board where writeno = #{writeNo}
+	</delete>
+	
+	<select id="selectBoardCount" resultType="Integer">
+		select count(*) from qa_board
+	</select>
+</mapper>

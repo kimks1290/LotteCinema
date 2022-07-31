@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.web.root.mybatis.client.ClientMapper">
+
+	<resultMap type="com.web.root.client.dto.ClientDTO" id="client">
+		<id property="no" column="no"/>			     <!-- not null -->
+		<result property="name" column="name"/>
+		<result property="title" column="title"/>    
+		<result property="theater" column="theater"/>
+		<result property="seats" column="seats"/>	<!-- not null  -->
+		<result property="time" column="time"/>
+		<result property="id" column="id"/>			<!--  not null  -->
+		<result property="phone" column="phone"/>
+		<result property="price" column="price"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	
+		
+	 <insert id="reserveSave2">
+		insert into client values(#{no},#{name},#{title},
+		#{theater},#{seats},#{time},#{id},#{phone}, #{price},
+		#{count}, TO_DATE(sysdate,'yyyy/mm/dd HH24:MI:SS'))  
+	 </insert>
+	 
+	 <select id="reserveView" resultMap="client">
+		select no, name, title, theater, seats, time, id, phone, price, count from client where no=#{no}
+	 </select>
+	 
+	 <!-- =============================== -->
+	 
+		
+	 
+	 <select id="reserveView2" resultMap="client">
+		select  id, seats from client where no=#{no}
+	 </select>
+	 
+	 <update id="upCount1">
+		update client set count=count-1
+		where seats=#{seats}
+	</update>
+	
+	<update id="modify2">
+		update admin set status=100
+		where seats=#{seats} 
+	</update>
+</mapper>

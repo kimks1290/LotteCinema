@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.root.mybatis.reservation.ReservationMapper">
+	
+	<resultMap type="com.web.root.dto.ReservationDTO" id="remember">
+		<result property="name" column="name"/>
+		<result property="phone" column="phone"/>
+	</resultMap>
+	
+	<select id="find_movie" resultMap="remember">
+		select * from reservation_table where name=#{name}
+	</select>
+	
+</mapper>

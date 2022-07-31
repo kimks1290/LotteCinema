@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.root.mybatis.admin.AdminMapper">
+
+	<resultMap type="com.web.root.admin.dto.AdminDTO" id="admin">
+		<id property="movNo" column="movNo"/>
+		<result property="theater" column="theater"/>
+		<result property="title" column="title"/>
+		<result property="time" column="time"/>
+		<result property="count" column="count"/>
+		<result property="price" column="price"/>
+		<result property="seats" column="seats"/>
+	</resultMap>
+
+	
+	
+	<select id="getInfo" resultMap="admin">
+		select distinct  movno, title, theater, time, price, count from admin
+	</select>
+	
+	<select id="movie1"  resultMap="admin">
+		select * from admin where movNo=#{code}
+	</select>
+	<select id="movie1seat"  resultMap="admin">
+		select seats from admin where movNo=#{code}
+	</select>
+	
+	<update id="modify1">
+		update admin set status=100
+		where seats=#{seats} and movNo=1
+	</update>
+	
+	<select id="unoccupied1" resultMap="admin" resultType="int">
+		select NVL(count(*),0) from admin
+		where movNo=#{movNo} and status=0
+	</select>
+	
+	<select id="movie2"  resultMap="admin">
+		select * from admin where movNo=#{code}
+	</select>
+	
+	<update id="modify2">
+		update admin set status=100
+		where seats=#{seats} and movNo=2
+	</update>
+	
+	<select id="unoccupied2" resultMap="admin">
+		select count(*) from admin
+		where movNo=2 and status=0
+	</select>
+	
+	<select id="movie3"  resultMap="admin">
+		select * from admin where movNo=#{code}
+	</select>
+	
+	<update id="modify3">
+		update admin set status=100
+		where seats=#{seats} and movNo=3
+	</update>
+	
+	<select id="unoccupied3" resultMap="admin">
+		select count(*) from admin
+		where movNo=3 and status=0
+	</select>
+	
+	<select id="movie4"  resultMap="admin">
+		select * from admin where movNo=#{code}
+	</select>
+	
+	<update id="modify4">
+		update admin set status=100
+		where seats=#{seats} and movNo=4
+	</update>
+	
+	<select id="unoccupied4" resultMap="admin">
+		select count(*) from admin
+		where movNo=4 and status=0
+	</select>
+	
+	
+</mapper>
+

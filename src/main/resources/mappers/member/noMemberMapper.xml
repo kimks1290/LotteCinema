@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.root.mybatis.noMember.NoMemberMapper">
+	
+	<resultMap type="com.web.root.dto.NoMemberDTO" id="nomember">
+		<result property="noName" column="noName"/>
+		<result property="noTel" column="noTel"/>
+		<result property="noLogTel" column="noLogTel"/>
+	</resultMap>
+	
+
+	<insert id="register">
+		insert into noMember values(#{noName}, #{noTel}, #{noLogTel})
+	</insert>
+	
+	<select id="noMemInfo" resultMap="nomember">
+		select * from noMember where noTel=#{noTel} and noLogTel=#{noLogTel}
+	</select>
+	
+
+
+</mapper>
